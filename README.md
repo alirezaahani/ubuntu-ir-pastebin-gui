@@ -9,4 +9,5 @@ After installing the librarys ,you can run the while you are in main folder of p
 ```
 python3 src/main.py
 ```
+Builded deb packages will be available for download soon.  
 Put your texts in it and share the link.  
