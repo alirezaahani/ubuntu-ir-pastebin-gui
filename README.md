@@ -1,13 +1,16 @@
 # Unoffcial gui for ubuntu pastebin
 A gui writed with qt and python3 for ubuntu.ir pastebin.  
 ## Installation
-You need to install pyqt5 and requests library using this command:  
+Download the latest build from build dictionary,then extract it using this command
 ```
-pip install pyqt5 requests 
+tar -xvzf *.tar.gz
 ```  
-After installing the librarys ,you can run the while you are in main folder of program using this command:  
+In the new dictionary run this command :
 ```
-python3 src/main.py
+python setup.py install
 ```
-Builded deb packages will be available for download soon.  
+Run it from terminal using this command:
+```
+qt-pastebin
+```
 Put your texts in it and share the link.  
