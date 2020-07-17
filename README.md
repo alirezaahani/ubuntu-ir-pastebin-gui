@@ -1,4 +1,4 @@
-# Unoffcial-gui-for-ubuntu-pastebin
+# Unoffcial gui for ubuntu pastebin
 A gui writed with qt and python3 for ubuntu.ir pastebin.  
 ## Installation
 You need to install pyqt5 and requests library using this command:  
