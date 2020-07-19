@@ -3,16 +3,12 @@ A gui writed with qt and python3 for ubuntu.ir pastebin.
 ## ScreenShot
 ![GUI](/screenshot/gui.png)
 ## Installation
-Download the latest build from build dictionary,then extract it using this command
+Download the latest script from github,from src folder ,run this command :
 ```
-tar -xvzf *.tar.gz
+python main.py
 ```  
-In the new dictionary run this command :
+You need requests and pyqt5 library too, so install it with pip
 ```
-python setup.py install
-```
-Run it from terminal using this command:
-```
-qt-pastebin
+pip3 install requests pyqt5
 ```
 Put your texts in it and share the link.  
