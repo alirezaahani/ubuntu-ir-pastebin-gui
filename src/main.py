@@ -1,4 +1,3 @@
-#This file writed by alirezaahani :)
 import ui
 import requests
 from PyQt5 import QtCore,QtGui,QtWidgets
