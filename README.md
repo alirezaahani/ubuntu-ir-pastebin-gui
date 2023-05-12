@@ -1,4 +1,4 @@
-# Unofficial gui for ubuntu pastebin
+# Graphical user interface for ubuntu pastebin
 A gui written with qt and python3 for ubuntu.ir pastebin.  
 ## ScreenShot
 ![GUI](/screenshot/gui.png)
