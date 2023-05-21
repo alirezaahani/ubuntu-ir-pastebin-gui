@@ -14,31 +14,36 @@ scriptDir = os.path.dirname(os.path.realpath(__file__))
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(575, 479)
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("./logo.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        MainWindow.setWindowIcon(icon)
+        MainWindow.resize(550, 450)
+
         MainWindow.setLayoutDirection(QtCore.Qt.RightToLeft)
         MainWindow.setLocale(QtCore.QLocale(QtCore.QLocale.Persian, QtCore.QLocale.Iran))
-        self.centralwidget = QtWidgets.QWidget(MainWindow)
-        self.centralwidget.setObjectName("centralwidget")
-        self.go = QtWidgets.QPushButton(self.centralwidget)
-        self.go.setGeometry(QtCore.QRect(10, 10, 551, 29))
-        self.go.setObjectName("go")
-        self.go.clicked.connect(self.go_button_pressed)
-        self.text = QtWidgets.QPlainTextEdit(self.centralwidget)
-        self.text.setGeometry(QtCore.QRect(10, 80, 551, 281))
-        self.text.setObjectName("text")
-        self.label = QtWidgets.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(10, 50, 551, 21))
-        self.label.setLayoutDirection(QtCore.Qt.RightToLeft)
-        self.label.setObjectName("label")
-        self.label_2 = QtWidgets.QLabel(self.centralwidget)
-        self.label_2.setGeometry(QtCore.QRect(10, 380, 551, 21))
-        self.label_2.setObjectName("label_2")
-        self.link = QtWidgets.QPlainTextEdit(self.centralwidget)
-        self.link.setGeometry(QtCore.QRect(10, 410, 551, 41))
-        self.link.setObjectName("link")
+
+        self.layout = QtWidgets.QGridLayout()
+        
+        self.text_label = QtWidgets.QLabel()
+        self.layout.addWidget(self.text_label, 0, 0)
+
+        self.text = QtWidgets.QPlainTextEdit()
+        self.layout.addWidget(self.text, 0, 1)
+        
+        self.link_text_label = QtWidgets.QLabel()
+        self.layout.addWidget(self.link_text_label, 1, 0)
+
+        self.link = QtWidgets.QTextEdit()
+        self.link.setDisabled(True)
+        self.layout.addWidget(self.link, 1, 1)
+
+        self.send = QtWidgets.QPushButton()
+        self.send.clicked.connect(self.send_button_pressed)
+        self.layout.addWidget(self.send, 2, 1)
+
+        self.layout.setRowStretch(1, 1)
+        self.layout.setRowStretch(2, 1)
+        self.layout.setRowStretch(0, 5)
+
+        self.centralwidget = QtWidgets.QWidget()
+        self.centralwidget.setLayout(self.layout)
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -46,7 +51,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Ubuntu iran unofficial gui for pastebin"))
-        self.go.setText(_translate("MainWindow", "برو"))
-        self.label.setText(_translate("MainWindow", "متن شما :"))
-        self.label_2.setText(_translate("MainWindow", "پیوندی که شما برای نمایش متن خود به دیگر افراد ارسال می‌کنید :"))
+        MainWindow.setWindowTitle("Pastebin GUI")
+        self.send.setText("ارسال متن به سرور")
+        self.text_label.setText("متن:‌ ")
+        self.link_text_label.setText("پیوند:‌ ")
