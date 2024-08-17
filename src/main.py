@@ -1,37 +1,54 @@
 import ui
 import requests
-from PyQt5 import QtCore,QtGui,QtWidgets
-from PyQt5.QtWidgets import QApplication,QFileDialog
-from PyQt5.QtCore import pyqtSlot
+from PyQt5.QtWidgets import QApplication, QMainWindow
+from PyQt5.QtCore import pyqtSlot, QThread, pyqtSignal
 
-class App(QtWidgets.QMainWindow, ui.Ui_MainWindow):
+class RequestThread(QThread):
+    result_ready = pyqtSignal(str)
+
+    def __init__(self, text, parent=None):
+        super().__init__(parent)
+        self.text = text
+
+    def run(self):
+        try:
+            response = requests.post("https://paste.ubuntu.ir/", data={'text': self.text})
+            if response.status_code == 200:
+                self.result_ready.emit(response.url)
+            else:
+                self.result_ready.emit(f"خطا در ارسال: {response.status_code}")
+        except requests.RequestException:
+            self.result_ready.emit("لطفا اتصال اینترنت خود را بررسی کنید.")
+
+class App(QMainWindow, ui.Ui_MainWindow):
     def __init__(self, parent=None):
-        super(App,self).__init__(parent)
+        super().__init__(parent)
         self.setupUi(self)
+        self.send_button.clicked.connect(self.send_button_pressed)
+        self.thread = None
 
     @pyqtSlot()
     def send_button_pressed(self):
         self.link.clear()
 
-        if not (text := self.text.toPlainText()):
-            self.link.setPlainText(f"لطفا متنی جهت ارسال وارد کنید.")
+        text = self.text.toPlainText().strip()
+        if not text:
+            self.link.setPlainText("لطفا متنی جهت ارسال وارد کنید.")
             return
 
-        try:
-            data = requests.post("https://paste.ubuntu.ir/", {
-                'text': text,
-            })
+        self.thread = RequestThread(text)
+        self.thread.result_ready.connect(self.on_result_ready)
+        self.thread.start()
 
-            self.link.setPlainText(data.url)
-        except requests.RequestException:
-            self.link.setPlainText(f"لطفا اتصال اینترنت خود را بررسی کنید.")
-
+    @pyqtSlot(str)
+    def on_result_ready(self, result):
+        self.link.setPlainText(result)
 
 def main():
-    mainApp = QApplication([])
-    mainwindow = App()
-    mainwindow.show()
-    mainApp.exec()
+    app = QApplication([])
+    window = App()
+    window.show()
+    app.exec()
 
 if __name__ == "__main__":
     main()
