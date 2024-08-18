@@ -31,7 +31,7 @@ class Ui_MainWindow(object):
         self.layout.addWidget(self.link_text_label, 1, 0)
 
         self.link = QtWidgets.QTextEdit()
-        self.link.setDisabled(True)
+        self.link.setDisabled(False)
         self.layout.addWidget(self.link, 1, 1)
 
         self.send = QtWidgets.QPushButton()

@@ -12,7 +12,7 @@ class RequestThread(QThread):
 
     def run(self):
         try:
-            response = requests.post("https://paste.ubuntu.ir/", data={'text': self.text})
+            response = requests.post("https://paste.ubuntu-ir.org/", data={'text': self.text})
             if response.status_code == 200:
                 self.result_ready.emit(response.url)
             else:
@@ -24,7 +24,6 @@ class App(QMainWindow, ui.Ui_MainWindow):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setupUi(self)
-        self.send_button.clicked.connect(self.send_button_pressed)
         self.thread = None
 
     @pyqtSlot()
